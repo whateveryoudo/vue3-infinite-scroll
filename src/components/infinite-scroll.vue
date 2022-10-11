@@ -210,7 +210,7 @@ const perMove = () => {
           absVal = 1;
         }
         realIndex = props.listData.length - absVal;
-        mergeOption.value.slideIndex = realIndex;
+        mergeOption.value.slideIndex = -absVal;
       } else {
         if (absVal > props.listData.length) {
           absVal = props.listData.length;
