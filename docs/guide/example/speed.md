@@ -1,8 +1,8 @@
 <!--
  * @Author: ykx
  * @Date: 2022-10-11 14:22:35
- * @LastEditTime: 2022-10-11 16:44:11
- * @LastEditors: your name
+ * @LastEditTime: 2022-10-13 02:45:33
+ * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: \vue3-infinite-scroll\docs\guide\example\speed.md
 -->
@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-import Vue3InfiniteScroll from "vue3-infinite-scroll";
+import Vue3InfiniteScroll from "vue-next-infinite-scroll";
 const listData = reactive([
   "我是一段测试文字1",
   "我是一段测试文字2",

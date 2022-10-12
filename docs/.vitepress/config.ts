@@ -1,15 +1,15 @@
 /*
  * @Author: ykx
  * @Date: 2022-10-10 09:44:34
- * @LastEditTime: 2022-10-11 15:21:41
- * @LastEditors: your name
+ * @LastEditTime: 2022-10-13 02:42:54
+ * @LastEditors: Please set LastEditors
  * @Description:
- * @FilePath: \vue3-infinite-scroll\docs\.vitepress\config.ts
+ * @FilePath: \vue-next-infinite-scroll\docs\.vitepress\config.ts
  */
-const title = "vue3-infinite-scroll";
+const title = "vue-next-infinite-scroll";
 export default {
   title,
-  base: "/vue3-infinite-scroll/",
+  // base: "/vue-next-infinite-scroll/",
   description: "基于vue3的无缝滚动",
   head: [["link", { rel: "icon", href: `/favicon.ico` }]],
   themeConfig: {
@@ -24,6 +24,7 @@ export default {
             { text: "使用", link: "/guide/usage" },
             { text: "配置项", link: "/guide/properties" },
             { text: "事件", link: "/guide/events" },
+            { text: "注意点", link: "/guide/note" },
           ],
         },
         {
@@ -38,6 +39,9 @@ export default {
         },
       ],
     },
+    footer: {
+      message: '特别感谢chenxuan0000的vue-seamless-scroll，参考了其中部分逻辑。',
+    }
   },
   dest: "./distDocs",
 };

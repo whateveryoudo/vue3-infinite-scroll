@@ -1,7 +1,7 @@
 ---
 layout: home
 hero:
-  name: "vue3-infinite-scroll"
+  name: "vue-next-infinite-scroll"
   tagline: 基于vue3的无线滚动组件
   actions:
     - theme: brand
@@ -14,5 +14,6 @@ features:
     details: IE9+、Firefox、Chrome、Safari、iOS、Android。
   - title: 支持多方式调用【TODO】
     details: 组件、指令、hook
-footer: 如有疑问，请前往issue查看
 ---
+
+

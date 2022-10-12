@@ -1,8 +1,31 @@
 {
-  "name": "vue3-infinite-scroll",
-  "private": true,
-  "version": "0.0.0",
+  "name": "vue-next-infinite-scroll",
+  "version": "0.0.1",
   "type": "module",
+  "author": "ykx",
+  "description": "基于vue3的滚动插件",
+  "keywords": [
+    "infinite-scroll",
+    "seamless-scroll",
+    "infinite",
+    "seamless",
+    "scroll"
+  ],
+  "files": [
+    "lib"
+  ],
+  "main": "./lib/Vu3InfiniteScroll.umd.cjs",
+  "module": "./lib/Vu3InfiniteScroll.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whateveryoudo/vue3-infinite-scroll"
+  },
+  "exports": {
+    ".": {
+      "import": "./lib/Vu3InfiniteScroll.js",
+      "require": "./lib/Vu3InfiniteScroll.umd.cjs"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -12,7 +35,8 @@
   },
   "dependencies": {
     "vitepress": "^1.0.0-alpha.19",
-    "vue": "^3.2.37"
+    "vue": "^3.2.37",
+    "vue-next-infinite-scroll": "^0.0.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.1.0",
@@ -21,5 +45,6 @@
     "typescript": "^4.6.4",
     "vite": "^3.1.0",
     "vue-tsc": "^0.40.4"
-  }
+  },
+  "license": "ISC"
 }

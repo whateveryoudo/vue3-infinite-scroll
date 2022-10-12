@@ -1,8 +1,8 @@
 <!--
  * @Author: ykx
  * @Date: 2022-10-11 14:24:55
- * @LastEditTime: 2022-10-11 14:28:29
- * @LastEditors: your name
+ * @LastEditTime: 2022-10-13 02:43:28
+ * @LastEditors: Please set LastEditors
  * @Description: 数据动态改变
  * @FilePath: \vue3-infinite-scroll\docs\.vitepress\components\ChangeDataScroll.vue
 -->
@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-import Vue3InfiniteScroll from "../../../src/components/index";
+import { Vue3InfiniteScroll } from "vue-next-infinite-scroll";
 const listData = reactive([
   { title: "测试1" },
   { title: "测试2" },

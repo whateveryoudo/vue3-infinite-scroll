@@ -1,7 +1,7 @@
 <!--
  * @Author: ykx
  * @Date: 2022-10-10 11:29:43
- * @LastEditTime: 2022-10-12 12:50:17
+ * @LastEditTime: 2022-10-13 00:57:29
  * @LastEditors: Please set LastEditors
  * @Description: TODO:手动控制采用css??
  * @FilePath: \vue3-infinite-scroll\src\components\infinite-scroll.vue
@@ -39,6 +39,7 @@ import {
   reactive,
 } from "vue";
 import type { ScrollOption } from "./type";
+
 const props = defineProps({
   rowKey: {
     type: String,
@@ -55,7 +56,7 @@ const props = defineProps({
 const emits = defineEmits(["rowScrollEnd"]);
 const defaultOption = {
   dir: "up",
-  step: 1,
+  step: 0.5,
   singleDataCount: 0, // 默认移动条数(仅在自定义渲染条件下生效)
   singleStepDis: 0, // 单步距离
   hoverStop: true,
@@ -202,16 +203,17 @@ const perMove = () => {
       emits("rowScrollEnd", props.listData[realIndex % props.listData.length]); // 单行滚动结束
       // 符合条件暂停waitTime
       singleTimer.value = setTimeout(() => {
-        autoPlay && perMove();
+        autoPlay && startMove();
       }, waitTime);
     } else {
-      perMove();
+      startMove();
     }
   } else {
-    perMove();
+    startMove();
   }
 };
 const startMove = () => {
+  reqFrame.value && cancelAnimationFrame(reqFrame.value || "");
   reqFrame.value = requestAnimationFrame(perMove);
 };
 const initMove = async () => {

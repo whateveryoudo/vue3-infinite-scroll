@@ -1,8 +1,8 @@
 <!--
  * @Author: ykx
  * @Date: 2022-10-10 10:20:25
- * @LastEditTime: 2022-10-11 16:43:40
- * @LastEditors: your name
+ * @LastEditTime: 2022-10-13 02:45:10
+ * @LastEditors: Please set LastEditors
  * @Description:
  * @FilePath: \vue3-infinite-scroll\docs\guide\example\direction.md
 -->
@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-import Vue3InfiniteScroll from "vue3-infinite-scroll";
+import Vue3InfiniteScroll from "vue-next-infinite-scroll";
 const listData = reactive([
   { title: "测试1" },
   { title: "测试2" },

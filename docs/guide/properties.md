@@ -1,8 +1,8 @@
 <!--
  * @Author: ykx
  * @Date: 2022-10-11 14:56:45
- * @LastEditTime: 2022-10-11 15:07:54
- * @LastEditors: your name
+ * @LastEditTime: 2022-10-13 00:27:00
+ * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: \vue3-infinite-scroll\docs\guide\properties.md
 -->
@@ -51,6 +51,14 @@ step 值不建议太小,不然会有卡顿效果(如果设置了单步滚动,ste
 - default：`0`
 
 单步运动停止的距离(默认值 0 是无缝不停止的滚动)，普通模式下需要传入指定距离，slot模式下需传入每次移动的数量
+
+### singleDataCount
+
+- type: `Number`
+- required: `false`
+- default：`0`
+
+每次移动的元素个数，仅在slot模式下生效
 
 ### waitTime
 

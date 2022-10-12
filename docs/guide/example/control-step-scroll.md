@@ -1,8 +1,8 @@
 <!--
  * @Author: ykx
  * @Date: 2022-10-11 15:22:47
- * @LastEditTime: 2022-10-11 16:51:12
- * @LastEditors: your name
+ * @LastEditTime: 2022-10-13 02:45:02
+ * @LastEditors: Please set LastEditors
  * @Description:
 -->
 
@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, nextTick } from "vue";
-import Vue3InfiniteScroll from "vue3-infinite-scroll";
+import Vue3InfiniteScroll from "vue-next-infinite-scroll";
 const listData = reactive([
   { title: "测试1" },
   { title: "测试2" },
