@@ -1,14 +1,12 @@
 /*
  * @Author: ykx
  * @Date: 2022-10-10 11:35:33
- * @LastEditTime: 2022-10-11 15:31:00
- * @LastEditors: your name
+ * @LastEditTime: 2022-10-12 10:24:51
+ * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: \vue3-infinite-scroll\src\components\type.ts
  */
 export interface ScrollOption {
-    yPos: number;
-    xPos: number;
     dir: string;
     step: number;
     singleStepDis: number;
@@ -16,6 +14,6 @@ export interface ScrollOption {
     hoverStop: boolean;
     waitTime: number;
     autoPlay: boolean;
-    loop: true;
+    loop: boolean;
     slideIndex: number;
 }

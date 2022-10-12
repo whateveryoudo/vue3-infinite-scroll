@@ -1,42 +1,25 @@
 <!--
  * @Author: ykx
  * @Date: 2022-10-10 11:29:43
- * @LastEditTime: 2022-10-11 17:21:50
- * @LastEditors: your name
+ * @LastEditTime: 2022-10-12 12:50:17
+ * @LastEditors: Please set LastEditors
  * @Description: TODO:手动控制采用css??
  * @FilePath: \vue3-infinite-scroll\src\components\infinite-scroll.vue
 -->
 <template>
   <div ref="overflowWrap" class="infinite-scroll-wrapper">
-    <div
-      class="scroll-wrapper"
-      ref="scrollWrap"
-      :style="scrollStyle"
-      @mouseenter="enter"
-      @mouseleave="leave"
-    >
-      <div
-        ref="originWrap"
-        :class="['origin-wrapper', isHorizontal && 'horizontal']"
-        :style="isHorizontal ? { float: 'left' } : {}"
-      >
+    <div class="scroll-wrapper" ref="scrollWrap" :style="scrollStyle" @mouseenter="enter" @mouseleave="leave">
+      <div ref="originWrap" :class="['origin-wrapper', isHorizontal && 'horizontal']"
+        :style="isHorizontal ? { float: 'left' } : {}">
         <!-- 这里渲染容器暂不设置margin,减少计算样式 -->
         <template v-if="renderItem">
-          <div
-            v-for="(item, index) in calcData"
-            :key="(item as any)[rowKey] || index"
-            class="scroll-row-item"
-          >
+          <div v-for="(item, index) in calcData" :key="(item as any)[rowKey] || index" class="scroll-row-item">
             <slot name="custom-render" :item="item" />
           </div>
         </template>
         <slot v-else />
       </div>
-      <div
-        class="copy-wrapper"
-        v-if="!renderItem && showCopyElem"
-        :style="isHorizontal ? { float: 'left' } : {}"
-      >
+      <div class="copy-wrapper" v-if="!renderItem && showCopyElem" :style="isHorizontal ? { float: 'left' } : {}">
         <slot />
       </div>
     </div>
@@ -53,6 +36,7 @@ import {
   onBeforeMount,
   useSlots,
   watch,
+  reactive,
 } from "vue";
 import type { ScrollOption } from "./type";
 const props = defineProps({
@@ -80,6 +64,8 @@ const defaultOption = {
   loop: true,
   slideIndex: 0, // 滚动索引
 };
+const lastDir = ref('');
+const tempSlideIndex = ref(0);
 const showCopyElem = ref(false);
 const yPos = ref(0);
 const xPos = ref(0);
@@ -101,9 +87,6 @@ const slots = useSlots();
 const renderItem = computed(() => {
   return !!slots["custom-render"];
 });
-const mergeOption = computed(() => {
-  return { ...defaultOption, ...props.scrollOption };
-});
 const isHorizontal = computed(() => {
   return ["right", "left"].includes(mergeOption.value.dir);
 });
@@ -113,11 +96,11 @@ const calcSingleStepDis = computed(() => {
   const perRowItem = originWrap.value?.querySelector(".scroll-row-item") as any;
   return renderItem.value && mergeOption.value.singleDataCount > 0
     ? mergeOption.value.singleDataCount *
-        (perRowItem
-          ? isHorizontal.value
-            ? perRowItem.offsetWidth
-            : perRowItem.offsetHeight
-          : 0)
+    (perRowItem
+      ? isHorizontal.value
+        ? perRowItem.offsetWidth
+        : perRowItem.offsetHeight
+      : 0)
     : mergeOption.value.singleStepDis;
 });
 const realStep = computed(() => {
@@ -131,6 +114,8 @@ const realStep = computed(() => {
   return tempStep;
 });
 const calcData = ref(props.listData);
+
+
 // 监听外层数据变化
 watch(
   props.listData,
@@ -141,6 +126,9 @@ watch(
   },
   { flush: "post" }
 );
+const mergeOption = computed(() => {
+  return { ...defaultOption, ...props.scrollOption };
+});
 // 滚动容器样式
 const scrollStyle = computed(() => {
   return {
@@ -188,49 +176,39 @@ const perMove = () => {
   if (calcSingleStepDis.value > 0) {
     if (
       Math.abs(isHorizontal.value ? xPos.value : yPos.value) %
-        calcSingleStepDis.value <
+      calcSingleStepDis.value <
       realStep.value
     ) {
-      if (["up", "right"].includes(dir)) {
-        mergeOption.value.slideIndex -= 1;
-      } else {
-        mergeOption.value.slideIndex += 1;
-      }
-      // 临界点判断
-      let realIndex = mergeOption.value.slideIndex;
-      // if (mergeOption.value.slideIndex > 0) {
-      //   realIndex = mergeOption.value.slideIndex - 1;
-      // } else if (mergeOption.value.slideIndex < 0) {
-      //   realIndex = props.listData.length - Math.abs(mergeOption.value.slideIndex);
-      // }
-      console.log(realIndex ,mergeOption.value.slideIndex);
-      let absVal = Math.abs(realIndex);
-      if (mergeOption.value.slideIndex < 0) {
-        if (absVal > props.listData.length) {
-          absVal = 1;
-        }
-        realIndex = props.listData.length - absVal;
-        mergeOption.value.slideIndex = -absVal;
-      } else {
-        if (absVal > props.listData.length) {
-          absVal = props.listData.length;
-          realIndex = props.listData.length - absVal;
+      if (!lastDir.value || lastDir.value === dir) {
+        if (["up", "right"].includes(dir)) { // 数据后退
+          tempSlideIndex.value -= 1;
         } else {
-          realIndex = absVal - 1;
+          tempSlideIndex.value += 1;
         }
-        mergeOption.value.slideIndex = realIndex + 1;
       }
-      console.log(realIndex);
-      emits("rowScrollEnd", props.listData[realIndex]); // 单行滚动结束
+      lastDir.value = dir
+      // 临界点判断
+      let realIndex = tempSlideIndex.value;
+      const total = props.listData.length * 2
+      if (realIndex <= 0) {
+        tempSlideIndex.value = total;
+        realIndex = total - 1;
+      } else {
+        if (realIndex > total) {
+          tempSlideIndex.value = realIndex = 1;
+        }
+        realIndex -= 1;
+      }
+      emits("rowScrollEnd", props.listData[realIndex % props.listData.length]); // 单行滚动结束
       // 符合条件暂停waitTime
       singleTimer.value = setTimeout(() => {
-        autoPlay && startMove();
+        autoPlay && perMove();
       }, waitTime);
     } else {
-      startMove();
+      perMove();
     }
   } else {
-    startMove();
+    perMove();
   }
 };
 const startMove = () => {
@@ -296,7 +274,8 @@ const leave = () => {
 };
 defineExpose({ perMove });
 // 初始化滚动
-onMounted(async () => {
+onMounted(() => {
+  tempSlideIndex.value = mergeOption.value.slideIndex; // 初始index的值
   initMove();
 });
 onBeforeMount(() => {
