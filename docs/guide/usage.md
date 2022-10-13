@@ -1,8 +1,8 @@
 <!--
  * @Author: ykx
  * @Date: 2022-10-11 14:33:23
- * @LastEditTime: 2022-10-13 02:44:40
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-10-13 17:59:49
+ * @LastEditors: your name
  * @Description:
  * @FilePath: \vue3-infinite-scroll\docs\guide\usage.md
 -->
@@ -23,6 +23,7 @@ Vue.use(scroll, { componentName: "infinite-scroll" });
 // 2.局部注册
 import { defineComponent } from "vue";
 import Vue3InfiniteScroll from "vue-next-infinite-scroll";
+import "vue-next-infinite-scroll/lib/style.css"; // 注意样式引入
 export default defineComponent({
   components: {
     Vue3InfiniteScroll,
@@ -55,6 +56,7 @@ export default defineComponent({
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import Vue3InfiniteScroll from "vue-next-infinite-scroll";
+import "vue-next-infinite-scroll/lib/style.css"; // 注意样式引入
 const listData = reactive([
   "我是一段测试文字1",
   "我是一段测试文字2",

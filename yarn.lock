@@ -821,6 +821,24 @@ vue-next-infinite-scroll@^0.0.1:
     vitepress "^1.0.0-alpha.19"
     vue "^3.2.37"
 
+vue-next-infinite-scroll@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/vue-next-infinite-scroll/-/vue-next-infinite-scroll-0.0.2.tgz#03ed498acc81c4213e2d83bc6207a0a2df133ab6"
+  integrity sha512-c2KzwKc2PkFjVpnOQQjBssoNf3dAlFx24w3kqI4z7LP23stOzRFnRQaEMqY7+lP1Z22XAXmCXp5DdmqxWYCXBg==
+  dependencies:
+    vitepress "^1.0.0-alpha.19"
+    vue "^3.2.37"
+    vue-next-infinite-scroll "^0.0.1"
+
+vue-next-infinite-scroll@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.npmjs.org/vue-next-infinite-scroll/-/vue-next-infinite-scroll-0.0.3.tgz#ffa6cec133c979b9e0629d93006c0409c5186691"
+  integrity sha512-Zc6pbr3bVObtJk5T2YJbm9poFy/Y7P2m/L86ZypNKPDGGtBVrvQkwnWqL024ojXZ0vyR/UAzgyqaW/ce9ZEe+w==
+  dependencies:
+    vitepress "^1.0.0-alpha.19"
+    vue "^3.2.37"
+    vue-next-infinite-scroll "^0.0.2"
+
 vue-tsc@^0.40.4:
   version "0.40.13"
   resolved "https://registry.yarnpkg.com/vue-tsc/-/vue-tsc-0.40.13.tgz#0a193014f7cadb47459cf0809ce3953b74a1348c"

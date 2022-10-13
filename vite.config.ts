@@ -2,8 +2,8 @@
  * @Description:
  * @Autor: ykx
  * @Date: 2022-10-12 09:44:49
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-10-13 01:04:20
+ * @LastEditors: your name
+ * @LastEditTime: 2022-10-13 17:24:49
  */
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
@@ -16,9 +16,9 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points
       entry: resolve(__dirname, 'src/components/index.ts'),
-      name: 'Vu3InfiniteScroll',
+      name: 'VueNextInfiniteScroll',
       // the proper extensions will be added
-      fileName: 'Vu3InfiniteScroll'
+      fileName: 'VueNextInfiniteScroll'
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled

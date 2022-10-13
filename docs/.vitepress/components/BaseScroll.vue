@@ -1,8 +1,8 @@
 <!--
  * @Author: ykx
  * @Date: 2022-10-10 11:08:56
- * @LastEditTime: 2022-10-13 02:43:22
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-10-13 17:27:52
+ * @LastEditors: your name
  * @Description: 基础组件显示
  * @FilePath: \vue3-infinite-scroll\docs\.vitepress\components\BaseScroll.vue
 -->

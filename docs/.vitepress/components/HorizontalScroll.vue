@@ -1,8 +1,8 @@
 <!--
  * @Author: ykx
  * @Date: 2022-10-10 17:43:24
- * @LastEditTime: 2022-10-13 03:20:24
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-10-13 17:35:35
+ * @LastEditors: your name
  * @Description: 水平滚动
  * @FilePath: \vue3-infinite-scroll\docs\.vitepress\components\HorizontalScroll.vue
 -->
@@ -29,8 +29,8 @@
 
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-// import { Vue3InfiniteScroll } from "../../../src/components";
 import { Vue3InfiniteScroll } from "vue-next-infinite-scroll";
+import "vue-next-infinite-scroll/lib/style.css";
 const listData = reactive([
   { title: "测试1" },
   { title: "测试2" },
