@@ -11,8 +11,8 @@
 <h3 align="center">基于vue3的滚动插件</h3>
 
 ## 功能支持
--单步滚动
--无缝滚动
+- 单步滚动
+- 无缝滚动
 ## 文档
 [文档地址](https://whateveryoudo.github.io.)
 ## 贡献
