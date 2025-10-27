@@ -7,13 +7,13 @@
  * @FilePath: \vue3-infinite-scroll\src\components\type.ts
  */
 export interface ScrollOption {
-    dir: string;
-    step: number;
-    singleStepDis: number;
-    singleDataCount: number;
-    hoverStop: boolean;
-    waitTime: number;
-    autoPlay: boolean;
-    loop: boolean;
-    slideIndex: number;
+    dir?: string;
+    step?: number;
+    singleStepDis?: number;
+    singleDataCount?: number;
+    hoverStop?: boolean;
+    waitTime?: number;
+    autoPlay?: boolean;
+    loop?: boolean;
+    slideIndex?: number;
 }

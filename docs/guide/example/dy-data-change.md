@@ -18,6 +18,7 @@
   <Vue3InfiniteScroll
     class="out-wrapper"
     :listData="listData"
+    :height="120"
     :scrollOption="{ dir: 'right', singleDataCount: 1 }"
   >
     <template #custom-render="{ item }">
@@ -45,9 +46,7 @@ setTimeout(() => {
 
 <style scoped lang="less">
 .out-wrapper {
-  overflow: hidden;
   width: 390px;
-  height: 120px;
   .list-items-wrapper {
     display: flex;
     margin: 0;

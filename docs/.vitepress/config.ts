@@ -9,7 +9,7 @@
 const title = "vue-next-infinite-scroll";
 export default {
   title,
-  // base: "/vue-next-infinite-scroll/",
+  base: "/vue3-infinite-scroll/",
   description: "基于vue3的无缝滚动",
   head: [["link", { rel: "icon", href: `/favicon.ico` }]],
   themeConfig: {
@@ -21,7 +21,6 @@ export default {
           text: "指引",
           items: [
             { text: "安装", link: "/guide/" },
-            { text: "使用", link: "/guide/usage" },
             { text: "配置项", link: "/guide/properties" },
             { text: "事件", link: "/guide/events" },
             { text: "注意点", link: "/guide/note" },
@@ -43,5 +42,4 @@ export default {
       message: '特别感谢chenxuan0000的vue-seamless-scroll，参考了其中部分逻辑。',
     }
   },
-  dest: "./distDocs",
 };

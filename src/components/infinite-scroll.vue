@@ -3,21 +3,22 @@
  * @Date: 2022-10-10 11:29:43
  * @LastEditTime: 2022-10-13 00:57:29
  * @LastEditors: Please set LastEditors
- * @Description: TODO:手动控制采用css??
+ * @Description: 
  * @FilePath: \vue3-infinite-scroll\src\components\infinite-scroll.vue
 -->
 <template>
-  <div ref="overflowWrap" class="infinite-scroll-wrapper">
+  <div ref="overflowWrap" class="infinite-scroll-wrapper" :style="{ height: typeof height === 'number' ? `${height}px` : height, width: typeof width === 'number' ? `${width}px` : width }">
     <div class="scroll-wrapper" ref="scrollWrap" :style="scrollStyle" @mouseenter="enter" @mouseleave="leave">
       <div ref="originWrap" :class="['origin-wrapper', isHorizontal && 'horizontal']"
         :style="isHorizontal ? { float: 'left' } : {}">
-        <!-- 这里渲染容器暂不设置margin,减少计算样式 -->
         <template v-if="renderItem">
           <div v-for="(item, index) in calcData" :key="(item as any)[rowKey] || index" class="scroll-row-item">
-            <slot name="custom-render" :item="item" />
+            <slot name="custom-render" :item="item as any" />
           </div>
         </template>
-        <slot v-else />
+        <template v-else>
+          <slot />
+        </template>
       </div>
       <div class="copy-wrapper" v-if="!renderItem && showCopyElem" :style="isHorizontal ? { float: 'left' } : {}">
         <slot />
@@ -29,18 +30,25 @@
 <script setup lang="ts">
 import {
   ref,
-  PropType,
+  type PropType,
   onMounted,
   nextTick,
   computed,
   onBeforeMount,
   useSlots,
   watch,
-  reactive,
 } from "vue";
 import type { ScrollOption } from "./type";
 
 const props = defineProps({
+  height: {
+    type: [Number, String],
+    default: '100%',
+  },
+  width: {
+    type: [Number, String],
+    default: '100%',
+  },
   rowKey: {
     type: String,
     default: "id",
@@ -76,6 +84,8 @@ const wrapperH = ref(0);
 // 实际容器大小
 const scrollWrapperW = ref(0);
 const scrollWrapperH = ref(0);
+// 鼠标悬停状态：用于处理单步滚动时的暂停逻辑
+const isHovering = ref(false);
 // const delay = ref(0);
 // const ease = ref("ease-in");
 const overflowWrap = ref<HTMLDivElement>();
@@ -95,14 +105,26 @@ const isHorizontal = computed(() => {
 // 计算单步距离长度
 const calcSingleStepDis = computed(() => {
   const perRowItem = originWrap.value?.querySelector(".scroll-row-item") as any;
-  return renderItem.value && mergeOption.value.singleDataCount > 0
-    ? mergeOption.value.singleDataCount *
-    (perRowItem
-      ? isHorizontal.value
-        ? perRowItem.offsetWidth
-        : perRowItem.offsetHeight
-      : 0)
-    : mergeOption.value.singleStepDis;
+  
+  if (renderItem.value && mergeOption.value.singleDataCount > 0 && perRowItem) {
+    // 方案1：通过计算相邻元素位置差获取真实间距
+    const nextItem = perRowItem.nextElementSibling;
+    if (nextItem) {
+      const firstRect = perRowItem.getBoundingClientRect();
+      const secondRect = nextItem.getBoundingClientRect();
+      
+      // 计算两个元素之间的实际距离（由于样式可能设置在内部元素里面）
+      const itemDistance = isHorizontal.value 
+        ? secondRect.left - firstRect.left  // 横向：左边界差
+        : secondRect.top - firstRect.top;   // 纵向：上边界差
+      
+      // 返回：移动N条数据的总距离
+      return mergeOption.value.singleDataCount * Math.abs(itemDistance);
+    }
+  }
+  
+  // 普通 slot 模式或未设置 singleDataCount
+  return mergeOption.value.singleStepDis;
 });
 const realStep = computed(() => {
   let tempStep = mergeOption.value.step;
@@ -150,6 +172,8 @@ const perMove = () => {
       if (Math.abs(yPos.value) >= needMoveY) {
         yPos.value = 0;
       }
+      console.log(realStep.value);
+
       yPos.value -= realStep.value;
       break;
     case "down":
@@ -201,9 +225,19 @@ const perMove = () => {
         realIndex -= 1;
       }
       emits("rowScrollEnd", props.listData[realIndex % props.listData.length]); // 单行滚动结束
-      // 符合条件暂停waitTime
+      
+      // 单步滚动完成：检查是否悬停
+      if (isHovering.value) {
+        // 鼠标悬停中，停止滚动
+        return;
+      }
+      
+      // 符合条件暂停waitTime后继续
       singleTimer.value = setTimeout(() => {
-        autoPlay && startMove();
+        // 再次检查悬停状态（防止在等待期间鼠标移入）
+        if (!isHovering.value) {
+          autoPlay && startMove();
+        }
       }, waitTime);
     } else {
       startMove();
@@ -266,11 +300,25 @@ const stopMove = () => {
 };
 const enter = () => {
   if (mergeOption.value.autoPlay && mergeOption.value.hoverStop) {
-    stopMove();
+    isHovering.value = true;
+    
+    // 如果设置了单步滚动，等待当前这一步完成
+    if (calcSingleStepDis.value > 0) {
+      // 不立即停止，让 perMove 中的逻辑处理（会在单步完成时停止）
+      // 如果正在 waitTime 等待中，清除定时器立即停止
+      if (singleTimer.value) {
+        clearTimeout(singleTimer.value);
+        singleTimer.value = undefined;
+      }
+    } else {
+      // 无缝滚动模式：立即停止
+      stopMove();
+    }
   }
 };
 const leave = () => {
   if (mergeOption.value.autoPlay && mergeOption.value.hoverStop) {
+    isHovering.value = false;
     startMove();
   }
 };
@@ -286,6 +334,9 @@ onBeforeMount(() => {
 </script>
 
 <style scoped lang="less">
+.infinite-scroll-wrapper {
+  overflow: hidden;
+}
 .origin-wrapper.horizontal {
   display: flex;
 }

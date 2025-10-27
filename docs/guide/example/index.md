@@ -17,7 +17,7 @@
 
 ```vue
 <template>
-  <Vue3InfiniteScroll class="out-wrapper">
+  <Vue3InfiniteScroll class="out-wrapper" :height="120">
     <div v-for="(text, index) in listData" :key="index" class="list-item">
       {{ text }}
     </div>
@@ -44,8 +44,6 @@ const listData = reactive([
 
 <style scoped lang="less">
 .out-wrapper {
-  height: 120px;
-  overflow: hidden;
   .list-item {
     height: 25px;
     line-height: 25px;

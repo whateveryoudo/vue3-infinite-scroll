@@ -7,15 +7,10 @@
  * @FilePath: \vue3-infinite-scroll\docs\.vitepress\components\BaseScroll.vue
 -->
 <template>
-  <Vue3InfiniteScroll
-    class="out-wrapper"
-  >
+  <Vue3InfiniteScroll :height="120">
     <div v-for="(text, index) in listData" :key="index" class="list-item">
       {{ text }}
     </div>
-    <!-- <template #custom-render="{ item }">
-      <div>{{ item }}</div>
-    </template> -->
   </Vue3InfiniteScroll>
 </template>
 
@@ -48,8 +43,9 @@ const listData = reactive([
 .out-wrapper {
   height: 250px;
   overflow: hidden;
-  .list-item{
-    height:25px;
+
+  .list-item {
+    height: 25px;
     line-height: 25px;
   }
 }

@@ -1,8 +1,0 @@
-/docs/*
-/LICENSE
-/.idea
-/node_modules
-/build
-/.npmignore
-/src/*
-/public

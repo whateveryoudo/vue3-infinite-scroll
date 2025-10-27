@@ -21,6 +21,7 @@
   <Vue3InfiniteScroll
     class="out-wrapper"
     :listData="listData"
+    :height="120"
     :scrollOption="{ step: 2 }"
   >
     <template #custom-render="{ item }">
@@ -49,8 +50,6 @@ const listData = reactive([
 
 <style scoped lang="less">
 .out-wrapper {
-  height: 120px;
-  overflow: hidden;
   .list-item{
     height:25px;
     line-height: 25px;

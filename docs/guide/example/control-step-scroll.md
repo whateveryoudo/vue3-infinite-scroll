@@ -18,6 +18,7 @@
     ref="scrollElem"
     class="out-wrapper"
     :listData="listData"
+    :width="390"
     :scrollOption="scrollOption"
     @rowScrollEnd="handleRowScrollEnd"
   >
@@ -67,8 +68,6 @@ const handleRowScrollEnd = (item: any) => {
 
 <style scoped lang="less">
 .out-wrapper {
-  overflow: hidden;
-  width: 390px;
   height: 120px;
   .list-items-wrapper {
     display: flex;

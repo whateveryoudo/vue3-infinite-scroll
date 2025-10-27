@@ -14,6 +14,6 @@
 - 单步滚动
 - 无缝滚动
 ## 文档
-[文档地址](https://whateveryoudo.github.io.)
+[文档地址](https://whateveryoudo.github.io/vue3-infinite-scroll/)
 ## 贡献
 意见或建议请前往`issues`

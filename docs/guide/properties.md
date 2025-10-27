@@ -14,7 +14,24 @@
 
 无缝滚动 list 数据。
 
-slot模式下需要传入，普通模式下无需传入
+slot模式下需要传入，普通模式下无需传入(单步滚动下建议传入)
+
+
+## height
+
+- type: `Number` | `String`
+- required: `false`
+- default：`100%`
+
+滚动容器高度(水平滚动下无需指定)
+
+## width
+
+- type: `Number` | `String`
+- required: `false`
+- default：`100%`
+
+滚动容器宽度(垂直滚动下无需指定）
 
 ## scrollOption
 
@@ -25,8 +42,6 @@ slot模式下需要传入，普通模式下无需传入
 - default：`1`
 
 数值越大速度滚动越快。
-
-step 值不建议太小,不然会有卡顿效果(如果设置了单步滚动,step 需是单步大小的约数,否则无法保证单步滚动结束的位置是否准确。比如单步设置的 30,step 不能为 4)。
 
 ### hoverStop
 
@@ -50,7 +65,7 @@ step 值不建议太小,不然会有卡顿效果(如果设置了单步滚动,ste
 - required: `false`
 - default：`0`
 
-单步运动停止的距离(默认值 0 是无缝不停止的滚动)，普通模式下需要传入指定距离，slot模式下需传入每次移动的数量
+单步运动停止的距离(默认值 0 是无缝不停止的滚动)，普通模式下需要传入指定距离，slot模式下无效（使用singleDataCount）
 
 ### singleDataCount
 

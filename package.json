@@ -1,6 +1,6 @@
 {
   "name": "vue-next-infinite-scroll",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "author": "ykx",
   "description": "基于vue3的滚动插件",
@@ -37,7 +37,7 @@
   "dependencies": {
     "vitepress": "^1.0.0-alpha.19",
     "vue": "^3.2.37",
-    "vue-next-infinite-scroll": "^0.0.3"
+    "vue-next-infinite-scroll": "^0.0.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.1.0",
@@ -47,5 +47,6 @@
     "vite": "^3.1.0",
     "vue-tsc": "^0.40.4"
   },
+  "homepage": "https://whateveryoudo.github.io/vue3-infinite-scroll/",
   "license": "ISC"
 }
